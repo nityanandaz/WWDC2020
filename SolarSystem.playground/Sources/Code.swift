@@ -73,18 +73,6 @@ extension UnitDuration {
     static let years = UnitDuration(symbol: "a", converter: UnitConverterLinear(coefficient: 365.256 * 24 * 60 * 60))
 }
 
-// MARK: - Helper
-
-struct Square: ViewModifier {
-    func body(content: Content) -> some View {
-        GeometryReader { (proxy) in
-            content
-                .frame(width: min(proxy.size.width, proxy.size.height),
-                       height: min(proxy.size.width, proxy.size.height))
-        }
-    }
-}
-
 // MARK: - Views
 
 struct ScaleView: View {
@@ -168,7 +156,7 @@ struct AnimatedSolarSystemView: View {
     
     var body: some View {
         GeometryReader(content: self.makeView)
-            .modifier(Square())
+            .aspectRatio(1, contentMode: .fill)
             .background(SpaceView(starCount: 200))
             .padding()
             .onAppear {
